@@ -23,9 +23,6 @@
 							<div class="search-input" id="search">
 								<input type="text" placeholder="Type to guess" id="searchInput">
 								<div id="suggestions">
-									<button type="button" class="button" onclick="check_select('OS/2')">OS/2</button>
-									<button type="button" class="button" onclick="check_select('Windows')">Windows</button>
-									<button type="button" class="button" onclick="check_select('macOS')">macOS</button>
 								</div>
 								<div class="search-icon"><i class="fas fa-search"></i></div>
 							</div>
@@ -36,40 +33,14 @@
 						<div class="search-wrapper"  id="version_windows">
 							<div class="search-input">
 								<input type="text" placeholder="Type to guess" id="searchInput_win">
-								<div id="suggestions_win">
-									<button type="button" class="button" onclick="check_select_win('1.0')">1.0</button>
-									<button type="button" class="button" onclick="check_select_win('2.0')">2.0</button>
-									<button type="button" class="button" onclick="check_select_win('3.0')">3.0</button>
-									<button type="button" class="button" onclick="check_select_win('3.1')">3.1</button>
-									<button type="button" class="button" onclick="check_select_win('95')">95</button>
-									<button type="button" class="button" onclick="check_select_win('98')">98</button>
-									<button type="button" class="button" onclick="check_select_win('Me')">Me</button>
-									<button type="button" class="button" onclick="check_select_win('XP')">XP</button>
-									<button type="button" class="button" onclick="check_select_win('Vista')">Vista</button>
-									<button type="button" class="button" onclick="check_select_win('7')">7</button>
-									<button type="button" class="button" onclick="check_select_win('8')">8</button>
-									<button type="button" class="button" onclick="check_select_win('10')">10</button>
-									<button type="button" class="button" onclick="check_select_win('11')">11</button>
-								</div>
+								<div id="suggestions_win"></div>
 								<div class="search-icon"><i class="fas fa-search"></i></div>
 							</div>
 						</div>
 						<div class="search-wrapper"  id="version_macos">
 							<div class="search-input">
 								<input type="text" placeholder="Type to guess" id="searchInput_mac">
-								<div id="suggestions_mac">
-									<button type="button" class="button" onclick="check_select_mac('System 1')">System 1</button>
-									<button type="button" class="button" onclick="check_select_mac('System 3')">System 3</button>
-									<button type="button" class="button" onclick="check_select_mac('System 4')">System 4</button>
-									<button type="button" class="button" onclick="check_select_mac('System 7')">System 7</button>
-									<button type="button" class="button" onclick="check_select_mac('8')">8</button>
-									<button type="button" class="button" onclick="check_select_mac('9')">9</button>
-									<button type="button" class="button" onclick="check_select_mac('X 10.0 Cheetah')">X 10.0 Cheetah</button>
-									<button type="button" class="button" onclick="check_select_mac('X 10.2 Jaguar')">X 10.2 Jaguar</button>
-									<button type="button" class="button" onclick="check_select_mac('X 10.3 Panther')">X 10.3 Panther</button>
-									<button type="button" class="button" onclick="check_select_mac('X 10.4 Tiger')">X 10.4 Tiger</button>
-									<button type="button" class="button" onclick="check_select_mac('X 10.5 Leopard')">X 10.5 Leopard</button>
-								</div>
+								<div id="suggestions_mac"></div>
 								<div class="search-icon"><i class="fas fa-search"></i></div>
 							</div>
 						</div>
@@ -77,10 +48,6 @@
 							<div class="search-input">
 								<input type="text" placeholder="Type to guess" id="searchInput_os2">
 								<div id="suggestions_os2">
-									<button type="button" class="button" onclick="check_select_os2('1.3')">1.3</button>
-									<button type="button" class="button" onclick="check_select_os2('2.0')">2.0</button>
-									<button type="button" class="button" onclick="check_select_os2('Warp 3')">Warp 3</button>
-									<button type="button" class="button" onclick="check_select_os2('Warp 4')">Warp 4</button>
 								</div>
 								<div class="search-icon"><i class="fas fa-search"></i></div>
 							</div>
@@ -93,7 +60,7 @@
 			</tbody>
 		</table>
 		<div id="conglaturations" class="main_img">
-			<text id="end_text" class="center_text">Conglaturations!!!<br>You found it in tmp tries !!!</text>
+			<text id="end_text" class="center_text">Conglaturations!!!<br>You found the secret message !!! (this means something went very wrong)</text>
 			<br><br>
 			<button type="button" class="end_button" onclick="reload()">retry</button>
 		</div>
