@@ -37,6 +37,27 @@ if (os_array[os_id] == "Windows") {
     }
 }
 
+let suggestions_tmp = "";
+for (let i=0; i < os_array.length; i++) {
+	document.getElementById("suggestions").innerHTML = document.getElementById("suggestions").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select('" + os_array[i] + "')\">" + os_array[i] + "</button>"
+}
+
+suggestions_tmp = "";
+for (i=0; i < vers_win.length; i++) {
+	document.getElementById("suggestions_win").innerHTML = document.getElementById("suggestions_win").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_win('" + vers_win[i] + "')\">" + vers_win[i] + "</button>"
+}
+
+suggestions_tmp = "";
+for (i=0; i < vers_mac.length; i++) {
+	document.getElementById("suggestions_mac").innerHTML = document.getElementById("suggestions_mac").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_mac('" + vers_mac[i] + "')\">" + vers_mac[i] + "</button>"
+}
+
+suggestions_tmp = "";
+for (i=0; i < vers_os2.length; i++) {
+	document.getElementById("suggestions_os2").innerHTML = document.getElementById("suggestions_os2").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_os2('" + vers_os2[i] + "')\">" + vers_os2[i] + "</button>"
+}
+
+
 if (os_array[os_id] == "Windows") {
     date = date_win[img_id]
 } else if (os_array[os_id] == "macOS") {
@@ -105,108 +126,55 @@ function check_select(button) {
 function check_select_win(button) {
     document.getElementById("version_windows").style.display = 'none';
     document.getElementById("version").innerHTML = button;
-    if (document.getElementById("version").innerHTML == "1.0") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 1985;
-    } else if (document.getElementById("version").innerHTML == "2.0") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 1987;
-    } else if (document.getElementById("version").innerHTML == "3.0") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 1990;
-    } else if (document.getElementById("version").innerHTML == "3.1") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 1992;
-    } else if (document.getElementById("version").innerHTML == "95") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 1995;
-    } else if (document.getElementById("version").innerHTML == "98") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 1998;
-    } else if (document.getElementById("version").innerHTML == "Me") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 2000;
-    } else if (document.getElementById("version").innerHTML == "XP") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 2001;
-    } else if (document.getElementById("version").innerHTML == "Vista") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 2007;
-    } else if (document.getElementById("version").innerHTML == "7") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 2009;
-    } else if (document.getElementById("version").innerHTML == "8") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 2012;
-    } else if (document.getElementById("version").innerHTML == "10") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 2015;
-    } else if (document.getElementById("version").innerHTML == "11") {
-        document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 2021;
-    }
+	document.getElementById("company").innerHTML = "Microsoft"
+	
+	let version_id = 0
+	let version_tmp = ""
+	for (i=0; i < vers_win.length; i++) {
+		if (vers_win[i] == document.getElementById("version").innerHTML) {
+			version_id = i
+			break
+		}
+	}
+	document.getElementById("date").innerHTML = date_win[i]
     tab_down()
 }
 
 function check_select_mac(button) {
     document.getElementById("version_macos").style.display = 'none';
     document.getElementById("version").innerHTML = button;
-    if (document.getElementById("version").innerHTML == "System 1") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 1984;
-    } else if (document.getElementById("version").innerHTML == "System 2") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 1985;
-    } else if (document.getElementById("version").innerHTML == "System 3") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 1986;
-    } else if (document.getElementById("version").innerHTML == "System 4") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 1987;
-    } else if (document.getElementById("version").innerHTML == "System 7") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 1991;
-    } else if (document.getElementById("version").innerHTML == "8") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 1997;
-    } else if (document.getElementById("version").innerHTML == "9") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 1999;
-    } else if (document.getElementById("version").innerHTML == "X 10.0 Cheetah") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 2001;
-    } else if (document.getElementById("version").innerHTML == "X 10.2 Jaguar") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 2002;
-    } else if (document.getElementById("version").innerHTML == "X 10.3 Panther") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 2003;
-    } else if (document.getElementById("version").innerHTML == "X 10.4 Tiger") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 2005;
-    } else if (document.getElementById("version").innerHTML == "X 10.5 Leopard") {
-        document.getElementById("company").innerHTML = "Apple";
-        document.getElementById("date").innerHTML = 2007;
-    }
+	document.getElementById("company").innerHTML = "Apple"
+	
+	let version_id = 0
+	let version_tmp = ""
+	for (i=0; i < vers_mac.length; i++) {
+		if (vers_mac[i] == document.getElementById("version").innerHTML) {
+			version_id = i
+			break
+		}
+	}
+	document.getElementById("date").innerHTML = date_mac[i]
     tab_down()
 }
 
 function check_select_os2(button) {
     document.getElementById("version_os2").style.display = 'none';
     document.getElementById("version").innerHTML = button;
-    if (document.getElementById("version").innerHTML == "1.3") {
+	if (document.getElementById("version").innerHTML == "1.3") {
         document.getElementById("company").innerHTML = "Microsoft";
-        document.getElementById("date").innerHTML = 1990;
-    } else if (document.getElementById("version").innerHTML == "2.0") {
-        document.getElementById("company").innerHTML = "IBM";
-        document.getElementById("date").innerHTML = 1992;
-    } else if (document.getElementById("version").innerHTML == "Warp 3") {
-        document.getElementById("company").innerHTML = "IBM";
-        document.getElementById("date").innerHTML = 1994;
-    } else if (document.getElementById("version").innerHTML == "Warp 4") {
-        document.getElementById("company").innerHTML = "IBM";
-        document.getElementById("date").innerHTML = 1996;
-    }
+	} else {
+		document.getElementById("company").innerHTML = "IBM";
+	}
+	
+	let version_id = 0
+	let version_tmp = ""
+	for (i=0; i < vers_os2.length; i++) {
+		if (vers_os2[i] == document.getElementById("version").innerHTML) {
+			version_id = i
+			break
+		}
+	}
+	document.getElementById("date").innerHTML = date_os2[i]
     tab_down()
 }
 
@@ -255,8 +223,6 @@ function check_answer() {
         document.getElementById("date2").innerHTML = document.getElementById("date2").innerHTML + "↑";
     }
     if (os_check && ver_check) {
-        //document.getElementById("date2").innerHTML = "test"
-        //location.reload();
         document.getElementById("search").style.display = 'none';
         check_answer_row1()
         document.getElementById("table_test").deleteRow(1);
@@ -308,7 +274,7 @@ function check_answer_row1() {
     }
 }
 
-function tab_down() {
+function tab_down() { // absolute spaghetti pls don't look
     document.getElementById("search").style.display = 'block';
     document.getElementById("suggestions").style.display = 'none';
     document.getElementById("suggestions_win").style.display = 'none';
