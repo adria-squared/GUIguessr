@@ -19,6 +19,7 @@ var row = 1
 
 var company = ""
 var date = 0
+var base = ""
 var os_id = Math.floor(Math.random() * os_array.length)
 var img_id = 0
 
@@ -26,22 +27,30 @@ if (os_array[os_id] == "Windows") {
     img_id = Math.floor(Math.random() * imgs_win.length);
     main_img = imgs_win[img_id];
     company = "Microsoft"
+	if (main_img == "win1" || main_img == "win2" || main_img == "win3" || main_img == "win31" || main_img == "win95" || main_img == "win98" || main_img == "winme") {
+		base = "DOS"
+	} else {
+		base = "WinNT"
+	}
 } else if (os_array[os_id] == "macOS") {
     img_id = Math.floor(Math.random() * imgs_mac.length);
     main_img = imgs_mac[img_id];
     company = "Apple"
+	if (main_img == "macos1" || main_img == "macos3" || main_img == "macos4" || "main_img" == "macos7" || main_img == "macos8" || main_img == "macos9") {
+		base = "Mac OS Classic"
+	} else {
+		base = "Darwin"
+	}
 } else if (os_array[os_id] == "OS/2") {
     img_id = Math.floor(Math.random() * imgs_os2.length);
     main_img = imgs_os2[img_id];
-    if (main_img == "os213") {
-        company = "Microsoft"
-    } else {
-        company = "IBM"
-    }
+    company = "IBM"
+	base = "OS/2"
 } else if (os_array[os_id] == "Debian") {
     img_id = Math.floor(Math.random() * imgs_deb.length);
     main_img = imgs_deb[img_id];
 	company = "Debian Project"
+	base = "Linux"
 }
 
 let suggestions_tmp = "";
@@ -143,12 +152,19 @@ function check_select(button) {
 function check_select_win(button) {
     document.getElementById("version_windows").style.display = 'none';
     document.getElementById("version").innerHTML = button;
+	version = document.getElementById("version").innerHTML
 	document.getElementById("company").innerHTML = "Microsoft"
+	
+	if (version == "1.0" || version == "2.0" || version == "3.0" || version == "3.1" || version == "95" || version == "98" || version == "Me") {
+		document.getElementById("base").innerHTML = "DOS"
+	} else {
+		document.getElementById("base").innerHTML = "WinNT"
+	}
 	
 	let version_id = 0
 	let version_tmp = ""
 	for (i=0; i < vers_win.length; i++) {
-		if (vers_win[i] == document.getElementById("version").innerHTML) {
+		if (vers_win[i] == version) {
 			version_id = i
 			break
 		}
@@ -160,12 +176,19 @@ function check_select_win(button) {
 function check_select_mac(button) {
     document.getElementById("version_macos").style.display = 'none';
     document.getElementById("version").innerHTML = button;
+	version = document.getElementById("version").innerHTML
 	document.getElementById("company").innerHTML = "Apple"
+	
+	if (version == "System 1" || version == "System 3" || version == "System 4" || version == "System 7" || version == "8" || version == "9") {
+		document.getElementById("base").innerHTML = "Mac OS Classic"
+	} else {
+		document.getElementById("base").innerHTML = "Darwin"
+	}
 	
 	let version_id = 0
 	let version_tmp = ""
 	for (i=0; i < vers_mac.length; i++) {
-		if (vers_mac[i] == document.getElementById("version").innerHTML) {
+		if (vers_mac[i] == version) {
 			version_id = i
 			break
 		}
@@ -177,16 +200,18 @@ function check_select_mac(button) {
 function check_select_os2(button) {
     document.getElementById("version_os2").style.display = 'none';
     document.getElementById("version").innerHTML = button;
-	if (document.getElementById("version").innerHTML == "1.3") {
+	version = document.getElementById("version").innerHTML
+	if (version == "1.3") {
         document.getElementById("company").innerHTML = "Microsoft";
 	} else {
 		document.getElementById("company").innerHTML = "IBM";
 	}
+	document.getElementById("base").innerHTML = "OS/2"
 	
 	let version_id = 0
 	let version_tmp = ""
 	for (i=0; i < vers_os2.length; i++) {
-		if (vers_os2[i] == document.getElementById("version").innerHTML) {
+		if (vers_os2[i] == version) {
 			version_id = i
 			break
 		}
@@ -199,6 +224,8 @@ function check_select_deb(button) {
     document.getElementById("version_deb").style.display = 'none';
     document.getElementById("version").innerHTML = button;
 	document.getElementById("company").innerHTML = "Debian Project"
+	document.getElementById("base").innerHTML = "Linux"
+	
 	
 	let version_id = 0
 	let version_tmp = ""
@@ -220,39 +247,43 @@ function hide() {
 function check_answer() {
     var os_check = false
     var ver_check = false
-    if (document.getElementById("gui2").innerHTML == os_array[os_id]) {
-        document.getElementById("gui2").style.color = "#ffffff";
-        document.getElementById("gui2").style.backgroundColor = "#538d4e";
+    if (document.getElementById("cell_12").innerHTML == os_array[os_id]) {
+        document.getElementById("cell_12").style.color = "#ffffff";
+        document.getElementById("cell_12").style.backgroundColor = "#538d4e";
         os_check = true
     }
     if (os_array[os_id] == "Windows") {
-        if (document.getElementById("version2").innerHTML == vers_win[img_id]) {
-            document.getElementById("version2").style.color = "#ffffff";
-            document.getElementById("version2").style.backgroundColor = "#538d4e";
+        if (document.getElementById("version_cell2").innerHTML == vers_win[img_id]) {
+            document.getElementById("version_cell2").style.color = "#ffffff";
+            document.getElementById("version_cell2").style.backgroundColor = "#538d4e";
             ver_check = true
         }
     } else if (os_array[os_id] == "macOS") {
-        if (document.getElementById("version2").innerHTML == vers_mac[img_id]) {
-            document.getElementById("version2").style.color = "#ffffff";
-            document.getElementById("version2").style.backgroundColor = "#538d4e";
+        if (document.getElementById("version_cell2").innerHTML == vers_mac[img_id]) {
+            document.getElementById("version_cell2").style.color = "#ffffff";
+            document.getElementById("version_cell2").style.backgroundColor = "#538d4e";
             ver_check = true
         }
     } else if (os_array[os_id] == "OS/2") {
-        if (document.getElementById("version2").innerHTML == vers_os2[img_id]) {
-            document.getElementById("version2").style.color = "#ffffff";
-            document.getElementById("version2").style.backgroundColor = "#538d4e";
+        if (document.getElementById("version_cell2").innerHTML == vers_os2[img_id]) {
+            document.getElementById("version_cell2").style.color = "#ffffff";
+            document.getElementById("version_cell2").style.backgroundColor = "#538d4e";
             ver_check = true
         }
     } else if (os_array[os_id] == "Debian") {
-        if (document.getElementById("version2").innerHTML == vers_deb[img_id]) {
-            document.getElementById("version2").style.color = "#ffffff";
-            document.getElementById("version2").style.backgroundColor = "#538d4e";
+        if (document.getElementById("version_cell2").innerHTML == vers_deb[img_id]) {
+            document.getElementById("version_cell2").style.color = "#ffffff";
+            document.getElementById("version_cell2").style.backgroundColor = "#538d4e";
             ver_check = true
         }
     }
     if (document.getElementById("company2").innerHTML == company) {
         document.getElementById("company2").style.color = "#ffffff";
         document.getElementById("company2").style.backgroundColor = "#538d4e";
+    }
+    if (document.getElementById("base2").innerHTML == base) {
+        document.getElementById("base2").style.color = "#ffffff";
+        document.getElementById("base2").style.backgroundColor = "#538d4e";
     }
     if (document.getElementById("date2").innerHTML == date) {
         document.getElementById("date2").style.color = "#ffffff";
@@ -309,6 +340,10 @@ function check_answer_row1() {
         document.getElementById("company").style.color = "#ffffff";
         document.getElementById("company").style.backgroundColor = "#538d4e";
     }
+    if (document.getElementById("base").innerHTML == base) {
+        document.getElementById("base").style.color = "#ffffff";
+        document.getElementById("base").style.backgroundColor = "#538d4e";
+    }
     if (document.getElementById("date").innerHTML == date) {
         document.getElementById("date").style.color = "#ffffff";
         document.getElementById("date").style.backgroundColor = "#538d4e";
@@ -319,7 +354,7 @@ function check_answer_row1() {
     }
 }
 
-function tab_down() { // absolute spaghetti pls don't look
+function tab_down() { // (mostly) un-spaghettified
     document.getElementById("search").style.display = 'block';
     document.getElementById("suggestions").style.display = 'none';
     document.getElementById("suggestions_win").style.display = 'none';
@@ -332,200 +367,120 @@ function tab_down() { // absolute spaghetti pls don't look
     document.getElementById("version_deb").style.display = 'none';
     row = row+1
     if (row == 2) {
-        var row2 = document.createElement("tr");
-        row2.id = "row2";
-        var gui2 = document.createElement("td");
-        gui2.id = "gui2";
-        var version2 = document.createElement("td");
-        version2.id = "version2";
-        var company2 = document.createElement("td");
-        company2.id = "company2";
-        var date2 = document.createElement("td");
-        date2.id = "date2";
-        document.getElementById("tab_main").appendChild(row2);
-        document.getElementById("row2").appendChild(gui2);
-        document.getElementById("row2").appendChild(version2);
-        document.getElementById("row2").appendChild(company2);
-        document.getElementById("row2").appendChild(date2);
-        document.getElementById("gui2").innerHTML = document.getElementById("search_cell").innerHTML;
-        document.getElementById("version2").innerHTML = document.getElementById("version").innerHTML;
-        document.getElementById("company2").innerHTML = document.getElementById("company").innerHTML;
-        document.getElementById("date2").innerHTML = document.getElementById("date").innerHTML;
-        document.getElementById("search_cell").innerHTML = ""
-        document.getElementById("version").innerHTML = ""
-        document.getElementById("company").innerHTML = ""
-        document.getElementById("date").innerHTML = ""
+		var row2 = document.createElement("tr");
+		row2.id = "row2";
+		document.getElementById("tab_main").appendChild(row2);
+		document.getElementById("row2").innerHTML = document.getElementById("row1").innerHTML
+		var cells = document.getElementById("row2").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = (cells[i].id + 2);
+		}
+		cells = document.getElementById("row1").querySelectorAll("td")
+		for (i = 2; i < cells.length; i++) {
+			cells[i].innerHTML = "";
+		}
+		document.getElementById("cell_12").innerHTML = document.getElementById("search_cell").innerHTML
+		document.getElementById("version_cell2").innerHTML = document.getElementById("version").innerHTML
+		document.getElementById("search_cell").innerHTML = ""
+		document.getElementById("version").innerHTML = ""
         check_answer()
     } else if (row == 3) {
         var row3 = document.createElement("tr");
         row3.id = "row3";
-        var gui3 = document.createElement("td");
-        gui3.id = "gui3";
-        var version3 = document.createElement("td");
-        version3.id = "version3";
-        var company3 = document.createElement("td");
-        company3.id = "company3";
-        var date3 = document.createElement("td");
-        date3.id = "date3";
-        document.getElementById("tab_main").appendChild(row3);
-        document.getElementById("row3").appendChild(gui3);
-        document.getElementById("row3").appendChild(version3);
-        document.getElementById("row3").appendChild(company3);
-        document.getElementById("row3").appendChild(date3);
-        document.getElementById("gui3").innerHTML = document.getElementById("gui2").innerHTML;
-        document.getElementById("version3").innerHTML = document.getElementById("version2").innerHTML;
-        document.getElementById("company3").innerHTML = document.getElementById("company2").innerHTML;
-        document.getElementById("date3").innerHTML = document.getElementById("date2").innerHTML;
-        document.getElementById("gui2").innerHTML = document.getElementById("search_cell").innerHTML;
-        document.getElementById("version2").innerHTML = document.getElementById("version").innerHTML;
-        document.getElementById("company2").innerHTML = document.getElementById("company").innerHTML;
-        document.getElementById("date2").innerHTML = document.getElementById("date").innerHTML;
-        document.getElementById("search_cell").innerHTML = ""
-        document.getElementById("version").innerHTML = ""
-        document.getElementById("company").innerHTML = ""
-        document.getElementById("date").innerHTML = ""
-        document.getElementById("gui3").style.backgroundColor = document.getElementById("gui2").style.backgroundColor
-        document.getElementById("gui3").style.color = document.getElementById("gui2").style.color
-        document.getElementById("gui2").style.backgroundColor = "#ffffff"
-        document.getElementById("gui2").style.color = "#000000"
-        document.getElementById("version3").style.backgroundColor = document.getElementById("version2").style.backgroundColor
-        document.getElementById("version3").style.color = document.getElementById("version2").style.color
-        document.getElementById("version2").style.backgroundColor = "#ffffff"
-        document.getElementById("version2").style.color = "#000000"
-        document.getElementById("company3").style.backgroundColor = document.getElementById("company2").style.backgroundColor
-        document.getElementById("company3").style.color = document.getElementById("company2").style.color
-        document.getElementById("company2").style.backgroundColor = "#ffffff"
-        document.getElementById("company2").style.color = "#000000"
-        document.getElementById("date3").style.backgroundColor = document.getElementById("date2").style.backgroundColor
-        document.getElementById("date3").style.color = document.getElementById("date2").style.color
-        document.getElementById("date2").style.backgroundColor = "#ffffff"
-        document.getElementById("date2").style.color = "#000000"
+		document.getElementById("tab_main").appendChild(row3);
+		document.getElementById("row3").innerHTML = document.getElementById("row2").innerHTML
+		cells = document.getElementById("row3").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = cells[i].id.replace("2", "3");
+		}
+		
+		document.getElementById("row2").innerHTML = document.getElementById("row1").innerHTML
+		cells = document.getElementById("row2").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = (cells[i].id + 2);
+			cells[i].style.backgroundColor = "#ffffff";
+			cells[i].style.color = "#000000"
+		}
+		cells = document.getElementById("row1").querySelectorAll("td")
+		for (i = 2; i < cells.length; i++) {
+			cells[i].innerHTML = "";
+		}
+		document.getElementById("cell_12").innerHTML = document.getElementById("search_cell").innerHTML
+		document.getElementById("version_cell2").innerHTML = document.getElementById("version").innerHTML
+		document.getElementById("search_cell").innerHTML = ""
+		document.getElementById("version").innerHTML = ""
         check_answer()
     } else if (row == 4) {
         var row4 = document.createElement("tr");
+		document.getElementById("tab_main").appendChild(row4);
         row4.id = "row4";
-        var gui4 = document.createElement("td");
-        gui4.id = "gui4";
-        var version4 = document.createElement("td");
-        version4.id = "version4";
-        var company4 = document.createElement("td");
-        company4.id = "company4";
-        var date4 = document.createElement("td");
-        date4.id = "date4";
-        document.getElementById("tab_main").appendChild(row4);
-        document.getElementById("row4").appendChild(gui4);
-        document.getElementById("row4").appendChild(version4);
-        document.getElementById("row4").appendChild(company4);
-        document.getElementById("row4").appendChild(date4);
-        document.getElementById("gui4").innerHTML = document.getElementById("gui3").innerHTML;
-        document.getElementById("version4").innerHTML = document.getElementById("version3").innerHTML;
-        document.getElementById("company4").innerHTML = document.getElementById("company3").innerHTML;
-        document.getElementById("date4").innerHTML = document.getElementById("date3").innerHTML;
-        document.getElementById("gui3").innerHTML = document.getElementById("gui2").innerHTML;
-        document.getElementById("version3").innerHTML = document.getElementById("version2").innerHTML;
-        document.getElementById("company3").innerHTML = document.getElementById("company2").innerHTML;
-        document.getElementById("date3").innerHTML = document.getElementById("date2").innerHTML;
-        document.getElementById("gui2").innerHTML = document.getElementById("search_cell").innerHTML;
-        document.getElementById("version2").innerHTML = document.getElementById("version").innerHTML;
-        document.getElementById("company2").innerHTML = document.getElementById("company").innerHTML;
-        document.getElementById("date2").innerHTML = document.getElementById("date").innerHTML;
-        document.getElementById("search_cell").innerHTML = ""
-        document.getElementById("version").innerHTML = ""
-        document.getElementById("company").innerHTML = ""
-        document.getElementById("date").innerHTML = ""
-        document.getElementById("gui4").style.backgroundColor = document.getElementById("gui3").style.backgroundColor
-        document.getElementById("gui4").style.color = document.getElementById("gui3").style.color
-        document.getElementById("gui3").style.backgroundColor = document.getElementById("gui2").style.backgroundColor
-        document.getElementById("gui3").style.color = document.getElementById("gui2").style.color
-        document.getElementById("gui2").style.backgroundColor = "#ffffff"
-        document.getElementById("gui2").style.color = "#000000"
-        document.getElementById("version4").style.backgroundColor = document.getElementById("version3").style.backgroundColor
-        document.getElementById("version4").style.color = document.getElementById("version3").style.color
-        document.getElementById("version3").style.backgroundColor = document.getElementById("version2").style.backgroundColor
-        document.getElementById("version3").style.color = document.getElementById("version2").style.color
-        document.getElementById("version2").style.backgroundColor = "#ffffff"
-        document.getElementById("version2").style.color = "#000000"
-        document.getElementById("company4").style.backgroundColor = document.getElementById("company3").style.backgroundColor
-        document.getElementById("company4").style.color = document.getElementById("company3").style.color
-        document.getElementById("company3").style.backgroundColor = document.getElementById("company2").style.backgroundColor
-        document.getElementById("company3").style.color = document.getElementById("company2").style.color
-        document.getElementById("company2").style.backgroundColor = "#ffffff"
-        document.getElementById("company2").style.color = "#000000"
-        document.getElementById("date4").style.backgroundColor = document.getElementById("date3").style.backgroundColor
-        document.getElementById("date4").style.color = document.getElementById("date3").style.color
-        document.getElementById("date3").style.backgroundColor = document.getElementById("date2").style.backgroundColor
-        document.getElementById("date3").style.color = document.getElementById("date2").style.color
-        document.getElementById("date2").style.backgroundColor = "#ffffff"
-        document.getElementById("date2").style.color = "#000000"
+		document.getElementById("row4").innerHTML = document.getElementById("row3").innerHTML
+		cells = document.getElementById("row4").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = cells[i].id.replace("3", "4");
+		}
+		
+		document.getElementById("row3").innerHTML = document.getElementById("row2").innerHTML
+		cells = document.getElementById("row3").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = cells[i].id.replace("2", "3");
+		}
+		
+		document.getElementById("row2").innerHTML = document.getElementById("row1").innerHTML
+		cells = document.getElementById("row2").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = (cells[i].id + 2);
+			cells[i].style.backgroundColor = "#ffffff";
+			cells[i].style.color = "#000000"
+		}
+		cells = document.getElementById("row1").querySelectorAll("td")
+		for (i = 2; i < cells.length; i++) {
+			cells[i].innerHTML = "";
+		}
+		document.getElementById("cell_12").innerHTML = document.getElementById("search_cell").innerHTML
+		document.getElementById("version_cell2").innerHTML = document.getElementById("version").innerHTML
+		document.getElementById("search_cell").innerHTML = ""
+		document.getElementById("version").innerHTML = ""
+		
         check_answer()
     } else if (row == 5) {
         var row5 = document.createElement("tr");
         row5.id = "row5";
-        var gui5 = document.createElement("td");
-        gui5.id = "gui5";
-        var version5 = document.createElement("td");
-        version5.id = "version5";
-        var company5 = document.createElement("td");
-        company5.id = "company5";
-        var date5 = document.createElement("td");
-        date5.id = "date5";
         document.getElementById("tab_main").appendChild(row5);
-        document.getElementById("row5").appendChild(gui5);
-        document.getElementById("row5").appendChild(version5);
-        document.getElementById("row5").appendChild(company5);
-        document.getElementById("row5").appendChild(date5);
-        document.getElementById("gui5").innerHTML = document.getElementById("gui4").innerHTML;
-        document.getElementById("version5").innerHTML = document.getElementById("version4").innerHTML;
-        document.getElementById("company5").innerHTML = document.getElementById("company4").innerHTML;
-        document.getElementById("date5").innerHTML = document.getElementById("date4").innerHTML;
-        document.getElementById("gui4").innerHTML = document.getElementById("gui3").innerHTML;
-        document.getElementById("version4").innerHTML = document.getElementById("version3").innerHTML;
-        document.getElementById("company4").innerHTML = document.getElementById("company3").innerHTML;
-        document.getElementById("date4").innerHTML = document.getElementById("date3").innerHTML;
-        document.getElementById("gui3").innerHTML = document.getElementById("gui2").innerHTML;
-        document.getElementById("version3").innerHTML = document.getElementById("version2").innerHTML;
-        document.getElementById("company3").innerHTML = document.getElementById("company2").innerHTML;
-        document.getElementById("date3").innerHTML = document.getElementById("date2").innerHTML;
-        document.getElementById("gui2").innerHTML = document.getElementById("search_cell").innerHTML;
-        document.getElementById("version2").innerHTML = document.getElementById("version").innerHTML;
-        document.getElementById("company2").innerHTML = document.getElementById("company").innerHTML;
-        document.getElementById("date2").innerHTML = document.getElementById("date").innerHTML;
-        document.getElementById("search_cell").innerHTML = ""
-        document.getElementById("version").innerHTML = ""
-        document.getElementById("company").innerHTML = ""
-        document.getElementById("date").innerHTML = ""
-        document.getElementById("gui5").style.backgroundColor = document.getElementById("gui4").style.backgroundColor
-        document.getElementById("gui5").style.color = document.getElementById("gui4").style.color
-        document.getElementById("gui4").style.backgroundColor = document.getElementById("gui3").style.backgroundColor
-        document.getElementById("gui4").style.color = document.getElementById("gui3").style.color
-        document.getElementById("gui3").style.backgroundColor = document.getElementById("gui2").style.backgroundColor
-        document.getElementById("gui3").style.color = document.getElementById("gui2").style.color
-        document.getElementById("gui2").style.backgroundColor = "#ffffff"
-        document.getElementById("gui2").style.color = "#000000"
-        document.getElementById("version5").style.backgroundColor = document.getElementById("version4").style.backgroundColor
-        document.getElementById("version5").style.color = document.getElementById("version4").style.color
-        document.getElementById("version4").style.backgroundColor = document.getElementById("version3").style.backgroundColor
-        document.getElementById("version4").style.color = document.getElementById("version3").style.color
-        document.getElementById("version3").style.backgroundColor = document.getElementById("version2").style.backgroundColor
-        document.getElementById("version3").style.color = document.getElementById("version2").style.color
-        document.getElementById("version2").style.backgroundColor = "#ffffff"
-        document.getElementById("version2").style.color = "#000000"
-        document.getElementById("company5").style.backgroundColor = document.getElementById("company4").style.backgroundColor
-        document.getElementById("company5").style.color = document.getElementById("company4").style.color
-        document.getElementById("company4").style.backgroundColor = document.getElementById("company3").style.backgroundColor
-        document.getElementById("company4").style.color = document.getElementById("company3").style.color
-        document.getElementById("company3").style.backgroundColor = document.getElementById("company2").style.backgroundColor
-        document.getElementById("company3").style.color = document.getElementById("company2").style.color
-        document.getElementById("company2").style.backgroundColor = "#ffffff"
-        document.getElementById("company2").style.color = "#000000"
-        document.getElementById("date5").style.backgroundColor = document.getElementById("date4").style.backgroundColor
-        document.getElementById("date5").style.color = document.getElementById("date4").style.color
-        document.getElementById("date4").style.backgroundColor = document.getElementById("date3").style.backgroundColor
-        document.getElementById("date4").style.color = document.getElementById("date3").style.color
-        document.getElementById("date3").style.backgroundColor = document.getElementById("date2").style.backgroundColor
-        document.getElementById("date3").style.color = document.getElementById("date2").style.color
-        document.getElementById("date2").style.backgroundColor = "#ffffff"
-        document.getElementById("date2").style.color = "#000000"
+		document.getElementById("row5").innerHTML = document.getElementById("row4").innerHTML
+		cells = document.getElementById("row5").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = cells[i].id.replace("4", "5");
+		}
+		
+		document.getElementById("row4").innerHTML = document.getElementById("row3").innerHTML
+		cells = document.getElementById("row4").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = cells[i].id.replace("3", "4");
+		}
+		
+		document.getElementById("row3").innerHTML = document.getElementById("row2").innerHTML
+		cells = document.getElementById("row3").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = cells[i].id.replace("2", "3");
+		}
+		
+		document.getElementById("row2").innerHTML = document.getElementById("row1").innerHTML
+		cells = document.getElementById("row2").querySelectorAll("td")
+		for (i = 0; i < cells.length; i++) {
+			cells[i].id = (cells[i].id + 2);
+			cells[i].style.backgroundColor = "#ffffff";
+			cells[i].style.color = "#000000"
+		}
+		cells = document.getElementById("row1").querySelectorAll("td")
+		for (i = 2; i < cells.length; i++) {
+			cells[i].innerHTML = "";
+		}
+		document.getElementById("cell_12").innerHTML = document.getElementById("search_cell").innerHTML
+		document.getElementById("version_cell2").innerHTML = document.getElementById("version").innerHTML
+		document.getElementById("search_cell").innerHTML = ""
+		document.getElementById("version").innerHTML = ""
+		
         check_answer()
     } else if (row >= 6) {
         document.getElementById("search").style.display = 'none';
