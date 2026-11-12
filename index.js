@@ -45,6 +45,9 @@ if (os_array[os_id] == "Windows") {
     img_id = Math.floor(Math.random() * imgs_os2.length);
     main_img = imgs_os2[img_id];
     company = "IBM"
+	if (main_img == "os213") {
+		company = "Microsoft"
+	}
 	base = "OS/2"
 } else if (os_array[os_id] == "Debian") {
     img_id = Math.floor(Math.random() * imgs_deb.length);
