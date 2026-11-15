@@ -11,9 +11,9 @@ const date_mac = [1984, 1986, 1987, 1991, 1997, 1999, 2001, 2002, 2003, 2005, 20
 const imgs_os2 = ["os213","os22", "os2w3", "os2w4"];
 const vers_os2 = ["1.3","2.0","Warp 3","Warp 4"];
 const date_os2 = [1990, 1992, 1994, 1996];
-const imgs_deb = ["debian2", "debian4", "debian6", "debian11"];
-const vers_deb = ["2.2", "4.0", "6.0", "11"];
-const date_deb = [2000, 2007, 2011, 2021];
+const imgs_deb = ["debian3", "debian4", "debian6", "debian11"];
+const vers_deb = ["3.0", "4.0", "6.0", "11"];
+const date_deb = [2002, 2007, 2011, 2021];
 
 var row = 1
 
