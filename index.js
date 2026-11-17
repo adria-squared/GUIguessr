@@ -22,11 +22,14 @@ var date = 0
 var base = ""
 var os_id = Math.floor(Math.random() * os_array.length)
 var img_id = 0
+var vers_array = []
 
 if (os_array[os_id] == "Windows") {
     img_id = Math.floor(Math.random() * imgs_win.length);
     main_img = imgs_win[img_id];
     company = "Microsoft"
+	vers_array = vers_win
+	date_array = date_win
 	if (main_img == "win1" || main_img == "win2" || main_img == "win3" || main_img == "win31" || main_img == "win95" || main_img == "win98" || main_img == "winme") {
 		base = "DOS"
 	} else {
@@ -36,6 +39,8 @@ if (os_array[os_id] == "Windows") {
     img_id = Math.floor(Math.random() * imgs_mac.length);
     main_img = imgs_mac[img_id];
     company = "Apple"
+	vers_array = vers_mac
+	date_array = date_mac
 	if (main_img == "macos1" || main_img == "macos3" || main_img == "macos4" || "main_img" == "macos7" || main_img == "macos8" || main_img == "macos9") {
 		base = "Mac OS Classic"
 	} else {
@@ -48,37 +53,21 @@ if (os_array[os_id] == "Windows") {
 	if (main_img == "os213") {
 		company = "Microsoft"
 	}
+	vers_array = vers_os2
+	date_array = date_os2
 	base = "OS/2"
 } else if (os_array[os_id] == "Debian") {
     img_id = Math.floor(Math.random() * imgs_deb.length);
     main_img = imgs_deb[img_id];
 	company = "Debian Project"
 	base = "Linux"
+	vers_array = vers_deb
+	date_array = date_deb
 }
 
 let suggestions_tmp = "";
 for (let i=0; i < os_array.length; i++) {
 	document.getElementById("suggestions").innerHTML = document.getElementById("suggestions").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select('" + os_array[i] + "')\">" + os_array[i] + "</button>"
-}
-
-suggestions_tmp = "";
-for (i=0; i < vers_win.length; i++) {
-	document.getElementById("suggestions_win").innerHTML = document.getElementById("suggestions_win").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_win('" + vers_win[i] + "')\">" + vers_win[i] + "</button>"
-}
-
-suggestions_tmp = "";
-for (i=0; i < vers_mac.length; i++) {
-	document.getElementById("suggestions_mac").innerHTML = document.getElementById("suggestions_mac").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_mac('" + vers_mac[i] + "')\">" + vers_mac[i] + "</button>"
-}
-
-suggestions_tmp = "";
-for (i=0; i < vers_os2.length; i++) {
-	document.getElementById("suggestions_os2").innerHTML = document.getElementById("suggestions_os2").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_os2('" + vers_os2[i] + "')\">" + vers_os2[i] + "</button>"
-}
-
-suggestions_tmp = "";
-for (i=0; i < vers_deb.length; i++) {
-	document.getElementById("suggestions_deb").innerHTML = document.getElementById("suggestions_deb").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_deb('" + vers_deb[i] + "')\">" + vers_deb[i] + "</button>"
 }
 
 if (os_array[os_id] == "Windows") {
@@ -93,10 +82,7 @@ if (os_array[os_id] == "Windows") {
 
 theme = themes[Math.floor(Math.random() * themes.length)];
 
-document.getElementById("version_windows").style.display = 'none';
-document.getElementById("version_macos").style.display = 'none';
-document.getElementById("version_os2").style.display = 'none';
-document.getElementById("version_deb").style.display = 'none';
+document.getElementById("version_search").style.display = 'none';
 
 document.getElementById("body").style.backgroundImage = "url('themes/" + theme + "/bg.png')";
 
@@ -137,114 +123,90 @@ document.getElementById("main_img").setAttribute('src', 'img/' + main_img + '.pn
 function check_select(button) {
     document.getElementById("search").style.display = 'none';
     document.getElementById("search_cell").innerHTML = button;
+    document.getElementById("version_search").style.display = 'block';
+    document.getElementById("suggestions_ver").style.display = 'block';
+	font = document.getElementById("body").style.fontFamily
+	document.getElementById("suggestions_ver").innerHTML = ""
     if (document.getElementById("search_cell").innerHTML == "Windows") {
-        document.getElementById("version_windows").style.display = 'block';
-        document.getElementById("suggestions_win").style.display = 'block';
+		suggestions_tmp = "";
+		for (i=0; i < vers_win.length; i++) {
+			document.getElementById("suggestions_ver").innerHTML = document.getElementById("suggestions_ver").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_ver('" + vers_win[i] + "')\" style='font-family:"+ font + ";'>" + vers_win[i] + "</button>"
+		}
     } else if (document.getElementById("search_cell").innerHTML == "macOS") {
-        document.getElementById("version_macos").style.display = 'block';
-        document.getElementById("suggestions_mac").style.display = 'block';
+		suggestions_tmp = "";
+		for (i=0; i < vers_mac.length; i++) {
+			document.getElementById("suggestions_ver").innerHTML = document.getElementById("suggestions_ver").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_ver('" + vers_mac[i] + "')\" style='font-family:"+ font + ";'>" + vers_mac[i] + "</button>"
+		}
     } else if (document.getElementById("search_cell").innerHTML == "OS/2") {
-        document.getElementById("version_os2").style.display = 'block';
-        document.getElementById("suggestions_os2").style.display = 'block';
+		suggestions_tmp = "";
+		for (i=0; i < vers_os2.length; i++) {
+			document.getElementById("suggestions_ver").innerHTML = document.getElementById("suggestions_ver").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_ver('" + vers_os2[i] + "')\" style='font-family:"+ font + ";'>" + vers_os2[i] + "</button>"
+		}
     } else if (document.getElementById("search_cell").innerHTML == "Debian") {
-        document.getElementById("version_deb").style.display = 'block';
-        document.getElementById("suggestions_deb").style.display = 'block';
+		suggestions_tmp = "";
+		for (i=0; i < vers_deb.length; i++) {
+			document.getElementById("suggestions_ver").innerHTML = document.getElementById("suggestions_ver").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_ver('" + vers_deb[i] + "')\" style='font-family:"+ font + ";'>" + vers_deb[i] + "</button>"
+		}
     }
 }
 
-function check_select_win(button) {
-    document.getElementById("version_windows").style.display = 'none';
+function check_select_ver(button) {
+    document.getElementById("version_search").style.display = 'none';
     document.getElementById("version").innerHTML = button;
+	OS = document.getElementById("search_cell").innerHTML
 	version = document.getElementById("version").innerHTML
-	document.getElementById("company").innerHTML = "Microsoft"
+	vers_array = []
 	
-	if (version == "1.0" || version == "2.0" || version == "3.0" || version == "3.1" || version == "95" || version == "98" || version == "Me") {
-		document.getElementById("base").innerHTML = "DOS"
-	} else {
-		document.getElementById("base").innerHTML = "WinNT"
-	}
-	
-	let version_id = 0
-	let version_tmp = ""
-	for (i=0; i < vers_win.length; i++) {
-		if (vers_win[i] == version) {
-			version_id = i
-			break
+	if (OS == "Windows") {
+		document.getElementById("company").innerHTML = "Microsoft"
+		if (version == "1.0" || version == "2.0" || version == "3.0" || version == "3.1" || version == "95" || version == "98" || version == "Me") {
+			document.getElementById("base").innerHTML = "DOS"
+		} else {
+			document.getElementById("base").innerHTML = "WinNT"
 		}
-	}
-	document.getElementById("date").innerHTML = date_win[i]
-    tab_down()
-}
-
-function check_select_mac(button) {
-    document.getElementById("version_macos").style.display = 'none';
-    document.getElementById("version").innerHTML = button;
-	version = document.getElementById("version").innerHTML
-	document.getElementById("company").innerHTML = "Apple"
-	
-	if (version == "System 1" || version == "System 3" || version == "System 4" || version == "System 7" || version == "8" || version == "9") {
+		vers_array = vers_win
+		date_array = date_win
+	} else if (OS == "macOS") {
+		document.getElementById("company").innerHTML = "Apple"
+		if (version == "System 1" || version == "System 3" || version == "System 4" || version == "System 7" || version == "8" || version == "9") {
 		document.getElementById("base").innerHTML = "Mac OS Classic"
-	} else {
-		document.getElementById("base").innerHTML = "Darwin"
-	}
-	
-	let version_id = 0
-	let version_tmp = ""
-	for (i=0; i < vers_mac.length; i++) {
-		if (vers_mac[i] == version) {
-			version_id = i
-			break
+		} else {
+			document.getElementById("base").innerHTML = "Darwin"
 		}
-	}
-	document.getElementById("date").innerHTML = date_mac[i]
-    tab_down()
-}
-
-function check_select_os2(button) {
-    document.getElementById("version_os2").style.display = 'none';
-    document.getElementById("version").innerHTML = button;
-	version = document.getElementById("version").innerHTML
-	if (version == "1.3") {
-        document.getElementById("company").innerHTML = "Microsoft";
-	} else {
-		document.getElementById("company").innerHTML = "IBM";
-	}
-	document.getElementById("base").innerHTML = "OS/2"
-	
-	let version_id = 0
-	let version_tmp = ""
-	for (i=0; i < vers_os2.length; i++) {
-		if (vers_os2[i] == version) {
-			version_id = i
-			break
+		vers_array = vers_mac
+		date_array = date_mac
+	} else if (OS == "OS/2") {
+		if (version == "1.3") {
+			document.getElementById("company").innerHTML = "Microsoft";
+		} else {
+			document.getElementById("company").innerHTML = "IBM";
 		}
+		document.getElementById("base").innerHTML = "OS/2"
+		vers_array = vers_os2
+		date_array = date_os2
+	} else if (OS == "Debian") {
+		document.getElementById("company").innerHTML = "Debian Project"
+		document.getElementById("base").innerHTML = "Linux"
+		vers_array = vers_deb
+		date_array = date_deb
 	}
-	document.getElementById("date").innerHTML = date_os2[i]
-    tab_down()
-}
-
-function check_select_deb(button) {
-    document.getElementById("version_deb").style.display = 'none';
-    document.getElementById("version").innerHTML = button;
-	document.getElementById("company").innerHTML = "Debian Project"
-	document.getElementById("base").innerHTML = "Linux"
 	
 	
 	let version_id = 0
 	let version_tmp = ""
-	for (i=0; i < vers_deb.length; i++) {
-		if (vers_deb[i] == document.getElementById("version").innerHTML) {
+	for (i=0; i < vers_array.length; i++) {
+		if (vers_array[i] == version) {
 			version_id = i
 			break
 		}
 	}
-	document.getElementById("date").innerHTML = date_deb[i]
+	document.getElementById("date").innerHTML = date_array[i]
     tab_down()
 }
 
 function hide() {
     document.getElementById("suggestions").style.display = 'none';
-    document.getElementById("suggestions_win").style.display = 'none';
+    document.getElementById("suggestions_ver").style.display = 'none';
 }
 
 function check_answer() {
@@ -360,14 +322,8 @@ function check_answer_row1() {
 function tab_down() { // (mostly) un-spaghettified
     document.getElementById("search").style.display = 'block';
     document.getElementById("suggestions").style.display = 'none';
-    document.getElementById("suggestions_win").style.display = 'none';
-    document.getElementById("suggestions_mac").style.display = 'none';
-    document.getElementById("suggestions_os2").style.display = 'none';
-    document.getElementById("suggestions_deb").style.display = 'none';
-    document.getElementById("version_windows").style.display = 'none';
-    document.getElementById("version_macos").style.display = 'none';
-    document.getElementById("version_os2").style.display = 'none';
-    document.getElementById("version_deb").style.display = 'none';
+    document.getElementById("suggestions_ver").style.display = 'none';
+    document.getElementById("version_search").style.display = 'none';
     row = row+1
     if (row == 2) {
 		var row2 = document.createElement("tr");
@@ -512,76 +468,21 @@ suggestionsList.style.display = hasMatches ? 'block' : 'none';
 });
 
 
-const searchInput_win = document.getElementById("searchInput_win");
-const suggestionsList_win = document.getElementById('suggestions_win');
+const searchInput_ver = document.getElementById("searchInput_ver");
+const suggestionsList_ver = document.getElementById('suggestions_ver');
 
-searchInput_win.addEventListener('input', function () {
-const inputValue_win = this.value.trim().toLowerCase();
-const suggestionItems_win = suggestions_win.querySelectorAll('button');
+searchInput_ver.addEventListener('input', function () {
+const inputValue_ver = this.value.trim().toLowerCase();
+const suggestionItems_ver = suggestions_ver.querySelectorAll('button');
 
-let hasMatches_win = false;
+let hasMatches_ver = false;
 
-suggestionItems_win.forEach(function (listItem) {
-const textValue_win = listItem.textContent.toLowerCase();
-const displayStyle_win = textValue_win.includes(inputValue_win) ? 'block' : 'none';
-listItem.style.display = displayStyle_win;
-hasMatches_win = hasMatches_win || displayStyle_win === 'block';
+suggestionItems_ver.forEach(function (listItem) {
+const textValue_ver = listItem.textContent.toLowerCase();
+const displayStyle_ver = textValue_ver.includes(inputValue_ver) ? 'block' : 'none';
+listItem.style.display = displayStyle_ver;
+hasMatches_ver = hasMatches_ver || displayStyle_ver === 'block';
 });
 
-suggestionsList_win.style.display = hasMatches_win ? 'block' : 'none';
-});
-
-const searchInput_mac = document.getElementById("searchInput_mac");
-const suggestionsList_mac = document.getElementById('suggestions_mac');
-
-searchInput_mac.addEventListener('input', function () {
-const inputValue_mac = this.value.trim().toLowerCase();
-const suggestionItems_mac = suggestions_mac.querySelectorAll('button');
-
-let hasMatches_mac = false;
-
-suggestionItems_mac.forEach(function (listItem) {
-const textValue_mac = listItem.textContent.toLowerCase();
-const displayStyle_mac = textValue_mac.includes(inputValue_mac) ? 'block' : 'none';
-listItem.style.display = displayStyle_mac;
-hasMatches_mac = hasMatches_mac || displayStyle_mac === 'block';
-});
-
-suggestionsList_mac.style.display = hasMatches_mac ? 'block' : 'none';
-});
-
-const searchInput_os2 = document.getElementById("searchInput_os2");
-const suggestionsList_os2 = document.getElementById('suggestions_os2');
-
-searchInput_os2.addEventListener('input', function () {
-const inputValue_os2 = this.value.trim().toLowerCase();
-const suggestionItems_os2 = suggestions_os2.querySelectorAll('button');
-
-let hasMatches_os2 = false;
-
-suggestionItems_os2.forEach(function (listItem) {
-const inputValue_os2 = listItem.textContent.toLowerCase();
-const displayStyle_os2 = inputValue_os2.includes(inputValue_os2) ? 'block' : 'none';
-listItem.style.display = displayStyle_os2;
-hasMatches_os2 = hasMatches_os2 || displayStyle_os2 === 'block';
-});
-
-suggestionsList_os2.style.display = hasMatches_os2 ? 'block' : 'none';
-});
-
-
-searchInput_deb.addEventListener('input', function () {
-const inputValue_deb = this.value.trim().toLowerCase();
-const suggestionItems_deb = suggestions_deb.querySelectorAll('button');
-
-let hasMatches_deb = false;
-
-suggestionItems_deb.forEach(function (listItem) {
-const inputValue_deb = listItem.textContent.toLowerCase();
-const displayStyle_deb = inputValue_deb.includes(inputValue_deb) ? 'block' : 'none';
-listItem.style.display = displayStyle_deb;
-hasMatches_deb = hasMatches_deb || displayStyle_deb === 'block';
-});
-
-suggestionsList_deb.style.display = hasMatches_deb ? 'block' : 'none';
+suggestionsList_ver.style.display = hasMatches_ver ? 'block' : 'none';
 });
