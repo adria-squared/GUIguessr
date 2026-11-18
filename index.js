@@ -15,8 +15,8 @@ const imgs_deb = ["debian3", "debian5", "debian7", "debian12"];
 const vers_deb = ["3.0", "5.0", "7", "12"];
 const date_deb = [2002, 2009, 2013, 2023];
 const imgs_ami = ["amigaos13", "amigaos21", "amigaos31", "amigaos35", "amigaos41", "amigaos32"]
-const vers_ami = ["1.3", "2.1", "3.1", "3.5", "4.1", "3.2.3"]
-const date_ami = [1988, 1992, 1994, 1999, 2008, 2021]
+const vers_ami = ["1.3", "2.04", "3.1", "3.5", "4.1", "3.2.3"]
+const date_ami = [1988, 1991, 1994, 1999, 2008, 2021]
 
 var row = 1
 
