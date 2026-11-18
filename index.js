@@ -1,6 +1,6 @@
 const themes = ["win1", "win2", "win3", "win95", "winme","macos1", "macos7", "macos8", "macos9"];
 
-const os_array = ["Windows", "macOS","OS/2", "Debian"];
+const os_array = ["Windows", "macOS", "OS/2", "Debian", "AmigaOS"];
 
 const imgs_win = ["win1","win2", "win3", "win31", "win95", "win98", "winme", "winxp", "winvista", "win7", "win8", "win10", "win11"];
 const vers_win = ["1.0","2.0","3.0","3.1","95","98","Me","XP","Vista","7","8","10","11"];
@@ -14,6 +14,9 @@ const date_os2 = [1990, 1992, 1994, 1996];
 const imgs_deb = ["debian3", "debian5", "debian7", "debian12"];
 const vers_deb = ["3.0", "5.0", "7", "12"];
 const date_deb = [2002, 2009, 2013, 2023];
+const imgs_ami = ["amigaos13", "amigaos21", "amigaos31", "amigaos35", "amigaos41", "amigaos32"]
+const vers_ami = ["1.3", "2.1", "3.1", "3.5", "4.1", "3.2.3"]
+const date_ami = [1988, 1992, 1994, 1999, 2008, 2021]
 
 var row = 1
 
@@ -30,6 +33,7 @@ if (os_array[os_id] == "Windows") {
     company = "Microsoft"
 	vers_array = vers_win
 	date_array = date_win
+    date = date_win[img_id]
 	if (main_img == "win1" || main_img == "win2" || main_img == "win3" || main_img == "win31" || main_img == "win95" || main_img == "win98" || main_img == "winme") {
 		base = "DOS"
 	} else {
@@ -41,6 +45,7 @@ if (os_array[os_id] == "Windows") {
     company = "Apple"
 	vers_array = vers_mac
 	date_array = date_mac
+    date = date_mac[img_id]
 	if (main_img == "macos1" || main_img == "macos3" || main_img == "macos4" || "main_img" == "macos7" || main_img == "macos8" || main_img == "macos9") {
 		base = "Mac OS Classic"
 	} else {
@@ -55,6 +60,7 @@ if (os_array[os_id] == "Windows") {
 	}
 	vers_array = vers_os2
 	date_array = date_os2
+    date = date_os2[img_id]
 	base = "OS/2"
 } else if (os_array[os_id] == "Debian") {
     img_id = Math.floor(Math.random() * imgs_deb.length);
@@ -63,21 +69,25 @@ if (os_array[os_id] == "Windows") {
 	base = "Linux"
 	vers_array = vers_deb
 	date_array = date_deb
+    date = date_deb[img_id]
+} else if (os_array[os_id] == "AmigaOS") {
+    img_id = Math.floor(Math.random() * imgs_ami.length);
+    main_img = imgs_ami[img_id];
+    company = "Commodore"
+	if (main_img == "amigaos35") {
+		company = "Haage & Partner"
+	} else if (main_img == "amigaos41" || main_img == "amigaos32") {
+		company = "Hyperion"
+	}
+	vers_array = vers_ami
+	date_array = date_ami
+	base = "AmigaOS"
+    date = date_ami[img_id]
 }
 
 let suggestions_tmp = "";
 for (let i=0; i < os_array.length; i++) {
 	document.getElementById("suggestions").innerHTML = document.getElementById("suggestions").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select('" + os_array[i] + "')\">" + os_array[i] + "</button>"
-}
-
-if (os_array[os_id] == "Windows") {
-    date = date_win[img_id]
-} else if (os_array[os_id] == "macOS") {
-    date = date_mac[img_id]
-} else if (os_array[os_id] == "OS/2") {
-    date = date_os2[img_id]
-} else if (os_array[os_id] == "Debian") {
-    date = date_deb[img_id]
 }
 
 theme = themes[Math.floor(Math.random() * themes.length)];
@@ -147,6 +157,11 @@ function check_select(button) {
 		for (i=0; i < vers_deb.length; i++) {
 			document.getElementById("suggestions_ver").innerHTML = document.getElementById("suggestions_ver").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_ver('" + vers_deb[i] + "')\" style='font-family:"+ font + ";'>" + vers_deb[i] + "</button>"
 		}
+    } else if (document.getElementById("search_cell").innerHTML == "AmigaOS") {
+		suggestions_tmp = "";
+		for (i=0; i < vers_ami.length; i++) {
+			document.getElementById("suggestions_ver").innerHTML = document.getElementById("suggestions_ver").innerHTML + "<button type=\"button\" class=\"button\" onclick=\"check_select_ver('" + vers_ami[i] + "')\" style='font-family:"+ font + ";'>" + vers_ami[i] + "</button>"
+		}
     }
 }
 
@@ -155,7 +170,7 @@ function check_select_ver(button) {
     document.getElementById("version").innerHTML = button;
 	OS = document.getElementById("search_cell").innerHTML
 	version = document.getElementById("version").innerHTML
-	vers_array = []
+	version_array = []
 	
 	if (OS == "Windows") {
 		document.getElementById("company").innerHTML = "Microsoft"
@@ -164,7 +179,7 @@ function check_select_ver(button) {
 		} else {
 			document.getElementById("base").innerHTML = "WinNT"
 		}
-		vers_array = vers_win
+		version_array = vers_win
 		date_array = date_win
 	} else if (OS == "macOS") {
 		document.getElementById("company").innerHTML = "Apple"
@@ -173,7 +188,7 @@ function check_select_ver(button) {
 		} else {
 			document.getElementById("base").innerHTML = "Darwin"
 		}
-		vers_array = vers_mac
+		version_array = vers_mac
 		date_array = date_mac
 	} else if (OS == "OS/2") {
 		if (version == "1.3") {
@@ -182,20 +197,31 @@ function check_select_ver(button) {
 			document.getElementById("company").innerHTML = "IBM";
 		}
 		document.getElementById("base").innerHTML = "OS/2"
-		vers_array = vers_os2
+		version_array = vers_os2
 		date_array = date_os2
 	} else if (OS == "Debian") {
 		document.getElementById("company").innerHTML = "Debian Project"
 		document.getElementById("base").innerHTML = "Linux"
-		vers_array = vers_deb
+		version_array = vers_deb
 		date_array = date_deb
+	} else if (OS == "AmigaOS") {
+		if (version == "3.5") {
+			document.getElementById("company").innerHTML = "Haage & Partner";
+		} else if (version == "4.1" || version == "3.2") {
+			document.getElementById("company").innerHTML = "Hyperion";
+		} else {
+			document.getElementById("company").innerHTML = "Commodore";
+		}
+		document.getElementById("base").innerHTML = "AmigaOS"
+		version_array = vers_ami
+		date_array = date_ami
 	}
 	
 	
 	let version_id = 0
 	let version_tmp = ""
-	for (i=0; i < vers_array.length; i++) {
-		if (vers_array[i] == version) {
+	for (i=0; i < version_array.length; i++) {
+		if (version_array[i] == version) {
 			version_id = i
 			break
 		}
@@ -241,6 +267,12 @@ function check_answer() {
             document.getElementById("version_cell2").style.backgroundColor = "#538d4e";
             ver_check = true
         }
+    } else if (os_array[os_id] == "AmigaOS") {
+        if (document.getElementById("version_cell2").innerHTML == vers_ami[img_id]) {
+            document.getElementById("version_cell2").style.color = "#ffffff";
+            document.getElementById("version_cell2").style.backgroundColor = "#538d4e";
+            ver_check = true
+        }
     }
     if (document.getElementById("company2").innerHTML == company) {
         document.getElementById("company2").style.color = "#ffffff";
@@ -276,29 +308,41 @@ function reload() {
 }
 
 function check_answer_row1() {
+    os_check = false
+    ver_check = false
     if (document.getElementById("search_cell").innerHTML == os_array[os_id]) {
         document.getElementById("cell_1").style.color = "#ffffff";
         document.getElementById("cell_1").style.backgroundColor = "#538d4e";
-    }
-    if (os_array[os_id] == "Windows") {
+		os_check = true
+    } if (os_array[os_id] == "Windows") {
         if (document.getElementById("version").innerHTML == vers_win[img_id]) {
             document.getElementById("version_cell").style.color = "#ffffff";
             document.getElementById("version_cell").style.backgroundColor = "#538d4e";
+			ver_check = true
         }
     } else if (os_array[os_id] == "macOS") {
         if (document.getElementById("version").innerHTML == vers_mac[img_id]) {
             document.getElementById("version_cell").style.color = "#ffffff";
             document.getElementById("version_cell").style.backgroundColor = "#538d4e";
+			ver_check = true
         }
     } else if (os_array[os_id] == "OS/2") {
         if (document.getElementById("version").innerHTML == vers_os2[img_id]) {
             document.getElementById("version_cell").style.color = "#ffffff";
             document.getElementById("version_cell").style.backgroundColor = "#538d4e";
+			ver_check = true
         }
     } else if (os_array[os_id] == "Debian") {
         if (document.getElementById("version").innerHTML == vers_deb[img_id]) {
             document.getElementById("version_cell").style.color = "#ffffff";
             document.getElementById("version_cell").style.backgroundColor = "#538d4e";
+			ver_check = true
+        }
+    } else if (os_array[os_id] == "AmigaOS") {
+        if (document.getElementById("version").innerHTML == vers_ami[img_id]) {
+            document.getElementById("version_cell").style.color = "#ffffff";
+            document.getElementById("version_cell").style.backgroundColor = "#538d4e";
+			ver_check = true
         }
     }
     if (document.getElementById("company").innerHTML == company) {
@@ -316,6 +360,10 @@ function check_answer_row1() {
         document.getElementById("date").innerHTML = document.getElementById("date").innerHTML + "↓";
     } else {
         document.getElementById("date").innerHTML = document.getElementById("date").innerHTML + "↑";
+    }
+    if (os_check && ver_check) {
+        document.getElementById("conglaturations").style.display = "block";
+        document.getElementById("end_text").innerHTML = "Congratulations!!!<br>You found it in 5 tries!!!";
     }
 }
 
@@ -443,6 +491,8 @@ function tab_down() { // (mostly) un-spaghettified
         check_answer()
     } else if (row >= 6) {
         document.getElementById("search").style.display = 'none';
+        document.getElementById("conglaturations").style.display = "block";
+        document.getElementById("end_text").innerHTML = "You didn't find it in 5 tries, the answer was " + os_array[os_id] + " " + vers_array[img_id];
         check_answer_row1()
     }
     return
